@@ -5,5 +5,5 @@ require './config/environment'
 # end
 
 use Rack::MethodOverride #allows to send patch and delete requests
-
+use UsersController
 run ApplicationController
