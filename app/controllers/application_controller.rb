@@ -10,7 +10,11 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
+    if logged_in?
+      redirect "/users/#{current_user.id}"
+    else
     erb :welcome
+    end
   end
 
   helpers do
@@ -21,7 +25,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      @current_user ||= User.find_by(id: session[:user_id]) #returns nil if values dont match
+      @current_user = User.find_by(id: session[:user_id]) #returns nil if values dont match
       # storing in instance variable avoids re querying database
     end
 
