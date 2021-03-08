@@ -26,5 +26,11 @@ class EcommerceEntriesController < ApplicationController
     @ecommerce_entry = EcommerceEntry.find(params[:id])
     erb :"ecommerce_entries/show"
   end
+
+  # This route should send us to eccomerce_entries/edit.erb
+  # render an edit form
+  get '/ecommerce_entries/:id/edit' do
+    erb :'/ecommerce_entries/edit'
+  end
   # index route for all ecommerce entries
 end
