@@ -6,4 +6,5 @@ require './config/environment'
 
 use Rack::MethodOverride #allows to send patch and delete requests
 use UsersController
+use EcommerceEntriesController
 run ApplicationController
