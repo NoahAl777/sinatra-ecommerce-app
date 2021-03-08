@@ -6,7 +6,21 @@ class EcommerceEntriesController < ApplicationController
   end
   # post ecommerce_entries to create a new ecommerce entry
   post '/ecommerce_entries' do
+    # create and save to database
+    # only create entry if user is logged in
+    if !logged_in?
+      redirect '/'
+    end
+    # only save entry if it has content
+    if params[:content] != ""
+      # create a new entry
+      @ecommerce_entry = EcommerceEntry.create(content: params[:content], user_id: current_user.id)
+      redirect "/ecommerce_entries/#{@ecommerce_entry.id}"
+    else
+      redirect '/ecommerce_entries/new'
+    end
   end
+  
   # show page for ecommerce entry
 
   # index route for all ecommerce entries
