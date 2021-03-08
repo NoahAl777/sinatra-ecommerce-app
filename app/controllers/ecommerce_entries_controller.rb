@@ -20,8 +20,11 @@ class EcommerceEntriesController < ApplicationController
       redirect '/ecommerce_entries/new'
     end
   end
-  
-  # show page for ecommerce entry
 
+  # show page for ecommerce entry
+  get '/ecommerce_entries/:id' do
+    @ecommerce_entry = EcommerceEntry.find(params[:id])
+    erb :"ecommerce_entries/show"
+  end
   # index route for all ecommerce entries
 end
