@@ -19,6 +19,7 @@ class UsersController < ApplicationController
      else
       # tell the user they entered invalid credentials
       # redirect them to the login page
+      redirect '/login'
      end
   end
 
