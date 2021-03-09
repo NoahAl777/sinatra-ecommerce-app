@@ -1,1 +1,7 @@
-INDEX PAGE FOR ECOMMERCE ENTRIES
+ALL ECOMMERCE ENTRIES
+<% @ecommerce_entries.each do |ecommerce_entry|%>
+  <h4><a href="/ecommerce_entries/<%= ecommerce_entry.id %>"><%= ecommerce_entry.created_at %></a></h4>
+  <p><%= ecommerce_entry.content %></p>
+  <p>By <%= ecommerce_entry.user.name %>.</p>
+  <br><br>
+<% end %>
