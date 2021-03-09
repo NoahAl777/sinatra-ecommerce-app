@@ -1,5 +1,9 @@
 class EcommerceEntriesController < ApplicationController
   
+  get '/ecommerce_entries' do
+    @ecommerce_entries = EcommerceEntry.all
+    erb :'ecommerce_entries/index' 
+  end
   # get ecommerce_entries/new to render a form to create a new entry
   get '/ecommerce_entries/new' do
     erb :'/ecommerce_entries/new'
@@ -35,7 +39,7 @@ class EcommerceEntriesController < ApplicationController
     # only logged in users can edit posts
     if logged_in?
     # verify current user is the same as original entry user
-      if @ecommerce_entry.user == current_user
+      if authorized_to_edit?(@ecommerce_entry)
         erb :'/ecommerce_entries/edit'
       else
         redirect "users/#{current_user.id}"
