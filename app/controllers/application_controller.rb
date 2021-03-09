@@ -29,5 +29,7 @@ class ApplicationController < Sinatra::Base
       # storing in instance variable avoids re querying database
     end
 
-  end
+    def authorized_to_edit?(ecommerce_entry)
+      ecommerce_entry.user == current_user
+    end
 end
