@@ -1,10 +1,11 @@
-<h3>Description:<h3>
-<h4><%= @ecommerce_entry.content %></h4>
+<h2><%= @ecommerce_entry.title%> $<%= @ecommerce_entry.price%></h2>
+<h3><%= @ecommerce_entry.content %></h3>
 <br>
+<p> Created on <%= @ecommerce_entry.created_at %></p>
 <% if authorized_to_edit?(@ecommerce_entry)%> 
   <a href="/ecommerce_entries/<%= @ecommerce_entry.id %>/edit">Edit Post</a>
   <br><br>
-  <form class="" action="/ecommerce_entries/<%= @ecommerce_entry.id %>" method="">
+  <form class="" action="/ecommerce_entries/<%= @ecommerce_entry.id %>" method="post">
   <input type="hidden" name="_method" value="DELETE">
   <input type="submit" name="" value="Delete Post">
   </form>
