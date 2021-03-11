@@ -13,6 +13,8 @@
 ActiveRecord::Schema.define(version: 2021_03_07_093129) do
 
   create_table "ecommerce_entries", force: :cascade do |t|
+    t.string "title"
+    t.integer "price"
     t.string "content"
     t.integer "user_id"
     t.datetime "created_at", null: false
