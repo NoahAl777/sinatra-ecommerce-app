@@ -18,9 +18,11 @@ class EcommerceEntriesController < ApplicationController
     # only save entry if it has content
     if params[:content] != ""
       # create a new entry
+      flash[:message] = "Post was succesfully created."
       @ecommerce_entry = EcommerceEntry.create(content: params[:content], user_id: current_user.id)
       redirect "/ecommerce_entries/#{@ecommerce_entry.id}"
     else
+      flash[:message] = "Something went wrong."
       redirect '/ecommerce_entries/new'
     end
   end
