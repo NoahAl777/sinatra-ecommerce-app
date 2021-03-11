@@ -6,20 +6,19 @@ class EcommerceEntriesController < ApplicationController
   end
   # get ecommerce_entries/new to render a form to create a new entry
   get '/ecommerce_entries/new' do
+    redirect_if_not_logged_in
     erb :'/ecommerce_entries/new'
   end
   # post ecommerce_entries to create a new ecommerce entry
   post '/ecommerce_entries' do
+    redirect_if_not_logged_in
     # create and save to database
     # only create entry if user is logged in
-    if !logged_in?
-      redirect '/'
-    end
     # only save entry if it has content
     if params[:content] != ""
-      # create a new entry
       flash[:message] = "Post was succesfully created."
-      @ecommerce_entry = EcommerceEntry.create(content: params[:content], user_id: current_user.id)
+      # create a new entry
+      @ecommerce_entry = EcommerceEntry.create(title: params[:title], price: params[:price], content: params[:content], user_id: current_user.id)
       redirect "/ecommerce_entries/#{@ecommerce_entry.id}"
     else
       flash[:message] = "Something went wrong. Posts can't be empty."
@@ -29,6 +28,7 @@ class EcommerceEntriesController < ApplicationController
 
   # show page for ecommerce entry
   get '/ecommerce_entries/:id' do
+    redirect_if_not_logged_in
     set_ecommerce_entry
     erb :"ecommerce_entries/show"
   end
@@ -55,7 +55,7 @@ class EcommerceEntriesController < ApplicationController
       # verify current user is the same as original entry user
       if @ecommerce_entry.user == current_user && params[:content] != ""
         # 2. update entry
-        @ecommerce_entry.update(content: params[:content])
+        @ecommerce_entry.update(title: params[:title], price: params[:price], content: params[:content])
         # 3. redirect to show page
         redirect "ecommerce_entries/#{@ecommerce_entry.id}"
       else
@@ -65,7 +65,7 @@ class EcommerceEntriesController < ApplicationController
 
   delete '/ecommerce_entries/:id' do
     set_ecommerce_entry
-    if authorized_to_edit(@ecommerce_entry)
+    if authorized_to_edit?(@ecommerce_entry)
       # delete the entry
       @ecommerce_entry.destroy
       flash[:message] = "Succesfully deleted post."
