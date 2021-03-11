@@ -55,7 +55,7 @@ class EcommerceEntriesController < ApplicationController
     set_ecommerce_entry
     if logged_in?
       # verify current user is the same as original entry user
-      if @ecommerce_entry.user == current_user
+      if @ecommerce_entry.user == current_user && params[:content] != ""
         # 2. update entry
         @ecommerce_entry.update(content: params[:content])
         # 3. redirect to show page
@@ -66,6 +66,19 @@ class EcommerceEntriesController < ApplicationController
       else
         # send them to homepage if not logged in
         redirect "/"
+    end
+  end
+
+  delete '/ecommerce_entries/:id' do
+    set_ecommerce_entry
+    if authorized_to_edit(@ecommerce_entry)
+      # delete the entry
+      @ecommerce_entry.destroy
+      # redirect
+      redirect '/ecommerce_entries'
+    else
+      # go somewhere else --not deleted
+      redirect '/ecommerce_entries'
     end
   end
   # index route for all ecommerce entries
