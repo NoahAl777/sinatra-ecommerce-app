@@ -15,9 +15,10 @@ class UsersController < ApplicationController
      session[:user_id] = @user.id #actually logging the user in
      # redirect the user's landing page
      puts session
+     flash[:message] = "Welcome, #{@user.name}!"
      redirect "users/#{@user.id}"
      else
-      flash[:message] = "Your credentials were invalid. Please sign up or try again."
+      flash[:errors] = "Your credentials were invalid. Please sign up or try again."
       # tell the user they entered invalid credentials
       # redirect them to the login page
       redirect '/login'
@@ -33,11 +34,13 @@ class UsersController < ApplicationController
     # persist to database
     # params will look like this: {"name"=>"Noah", "email"=>"n@email.com", "password"=>"password"}
     # make sure input is valid
-    if params[:name] != "" && params[:email] != "" && params[:password] != "" # do all three have values?
-      @user = User.create(params) # if yes create a new user
+    @user = User.new(params) # if yes create a new user
+    if @user.save
       session[:user_id] = @user.id # actually logging the user in
+      flash[:message] = "You have succesfully created an account, #{@user.name}!"
       redirect "/users/#{@user.id}" # url
     else # not valid input
+      flash[:errors] = "Account creation failure: #{@user.errors.full_messages.to_sentence}"
       redirect '/signup'
     end
   end
@@ -45,6 +48,7 @@ class UsersController < ApplicationController
   # user SHOW route
   get '/users/:id' do
     @user = User.find_by(id: params[:id]) # retrieves user from databases
+    redirect_if_not_logged_in
     erb :'/users/show' # view displayed, erbs should only come from get request with exception of receiving invalid data on a post request
   end
 

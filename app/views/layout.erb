@@ -21,10 +21,13 @@
         <a href="/ecommerce_entries/new">Create a listing</a>
       <% end %>
     </div>
+    <div class="wrapper">
     <% if flash[:message] %>
       <h3><%= flash[:message] %></h3>
     <% end %>
-    <div class="wrapper">
+    <% if flash[:errors] %>
+      <h3 style="color: red;"><%= flash[:errors] %></h3>
+    <% end %>
 
         <%= yield %>
 

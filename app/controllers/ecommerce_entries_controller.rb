@@ -22,7 +22,7 @@ class EcommerceEntriesController < ApplicationController
       @ecommerce_entry = EcommerceEntry.create(content: params[:content], user_id: current_user.id)
       redirect "/ecommerce_entries/#{@ecommerce_entry.id}"
     else
-      flash[:message] = "Something went wrong."
+      flash[:message] = "Something went wrong. Posts can't be empty."
       redirect '/ecommerce_entries/new'
     end
   end
@@ -39,23 +39,19 @@ class EcommerceEntriesController < ApplicationController
     # find entry to edit
     set_ecommerce_entry
     # only logged in users can edit posts
-    if logged_in?
+    redirect_if_not_logged_in
     # verify current user is the same as original entry user
       if authorized_to_edit?(@ecommerce_entry)
         erb :'/ecommerce_entries/edit'
       else
         redirect "users/#{current_user.id}"
       end
-      else
-        # send them to homepage if not logged in
-        redirect "/"
-    end
   end
  
   patch '/ecommerce_entries/:id' do
     # 1. find ecommerce entry
     set_ecommerce_entry
-    if logged_in?
+    redirect_if_not_logged_in
       # verify current user is the same as original entry user
       if @ecommerce_entry.user == current_user && params[:content] != ""
         # 2. update entry
@@ -65,10 +61,6 @@ class EcommerceEntriesController < ApplicationController
       else
         redirect "users/#{current_user.id}"
       end
-      else
-        # send them to homepage if not logged in
-        redirect "/"
-    end
   end
 
   delete '/ecommerce_entries/:id' do
@@ -76,6 +68,7 @@ class EcommerceEntriesController < ApplicationController
     if authorized_to_edit(@ecommerce_entry)
       # delete the entry
       @ecommerce_entry.destroy
+      flash[:message] = "Succesfully deleted post."
       # redirect
       redirect '/ecommerce_entries'
     else
