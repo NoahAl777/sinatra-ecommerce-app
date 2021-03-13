@@ -1,6 +1,7 @@
 class EcommerceEntriesController < ApplicationController
   
   get '/ecommerce_entries' do
+    redirect_if_not_logged_in
     @ecommerce_entries = EcommerceEntry.all
     erb :'ecommerce_entries/index' 
   end
@@ -15,13 +16,13 @@ class EcommerceEntriesController < ApplicationController
     # create and save to database
     # only create entry if user is logged in
     # only save entry if it has content
-    if params[:content] != ""
+    if params[:content] != "" && params[:title] != "" && params[:price] != ""
       flash[:message] = "Post was succesfully created."
       # create a new entry
       @ecommerce_entry = EcommerceEntry.create(title: params[:title], price: params[:price], content: params[:content], user_id: current_user.id)
       redirect "/ecommerce_entries/#{@ecommerce_entry.id}"
     else
-      flash[:message] = "Something went wrong. Posts can't be empty."
+      flash[:errors] = "Something went wrong. Posts can't have empty fields."
       redirect '/ecommerce_entries/new'
     end
   end
@@ -53,13 +54,14 @@ class EcommerceEntriesController < ApplicationController
     set_ecommerce_entry
     redirect_if_not_logged_in
       # verify current user is the same as original entry user
-      if @ecommerce_entry.user == current_user && params[:content] != ""
+      if @ecommerce_entry.user == current_user && params[:content] != "" && params[:title] != "" && params[:price] != ""
         # 2. update entry
         @ecommerce_entry.update(title: params[:title], price: params[:price], content: params[:content])
         # 3. redirect to show page
         redirect "ecommerce_entries/#{@ecommerce_entry.id}"
       else
-        redirect "users/#{current_user.id}"
+        flash[:errors] = "Something went wrong. Posts can't have empty fields."
+        redirect "/ecommerce_entries/#{@ecommerce_entry.id}/edit"
       end
   end
 
@@ -83,4 +85,5 @@ class EcommerceEntriesController < ApplicationController
   def set_ecommerce_entry
     @ecommerce_entry = EcommerceEntry.find(params[:id])
   end
+
 end
