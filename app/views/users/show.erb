@@ -1,4 +1,10 @@
 
 <h2><%= @user.name %>'s Show Page</h3>
 
-<h3>Email: <%= @user.email %></h3>
+<h3>Email: <%= @user.email %></h3><br>
+
+<strong><h3>My Posts</h3></strong>
+<% @user_posts = EcommerceEntry.where(user_id: current_user.id ) %>
+  <% @user_posts.each do |post| %>
+    <p><a href="/ecommerce_entries/<%= post.id %>"><%= post.title %></a></p>
+  <% end %>
