@@ -1,0 +1,21 @@
+.page_title{
+  padding-bottom: 20px;
+  font-size: 28px;
+  border-bottom-style: groove;
+  text-align: center;
+}
+
+.posts{
+  padding: 15px;
+  border-bottom-style: groove;
+  border-bottom-color: #303030;
+  height: 140px;
+}
+
+.post_title{
+  color: blue;
+}
+
+h4{
+  font-size: 18px;
+}
