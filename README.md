@@ -1,4 +1,4 @@
-A simple Ecommerce Application hat allows usert to log in, sign up, and create their own posts. Users can also edit and delete their own entries.
+A simple Ecommerce Application that allows users to log in, sign up, and create their own posts. Users can also edit and delete their own entries. Additionally, in every users profile they will be able to see all the posts that they have created.
 
 LICENSE
 
