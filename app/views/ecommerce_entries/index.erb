@@ -1,8 +1,12 @@
-<h3>ALL ECOMMERCE ENTRIES</h3><br>
+<link rel="stylesheet" href="/stylesheets/index.css" />
+<h3 class="page_title">ALL ECOMMERCE ENTRIES</h3><br>
 <% @ecommerce_entries.each do |ecommerce_entry|%>
-  <h4><a href="/ecommerce_entries/<%= ecommerce_entry.id %>"><%= ecommerce_entry.title %></a> $<%= ecommerce_entry.price %></h4>
-  <p><%= ecommerce_entry.created_at %></p>
-  <p><%= ecommerce_entry.content %></p>
-  <p>By <%= ecommerce_entry.user.name %>.</p>
-  <br><br>
+  <div class="posts">
+      <h4><a href="/ecommerce_entries/<%= ecommerce_entry.id %>" class="post_title"><%= ecommerce_entry.title %></a> $<%= ecommerce_entry.price %></h4>
+      <br>
+      <p><%= ecommerce_entry.created_at %></p>
+      <p><%= ecommerce_entry.content %></p>
+      <p>By <%= ecommerce_entry.user.name %>.</p>
+      <br><br>
+  </div>
 <% end %>
