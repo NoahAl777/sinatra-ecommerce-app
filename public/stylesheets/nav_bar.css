@@ -14,6 +14,11 @@ li{
   margin: 5px auto;
 }
 
+li:hover{
+  font-size: 115%;
+  background-color: #303030;
+}
+
 .wrapper{
   margin: -5px auto;
 }
