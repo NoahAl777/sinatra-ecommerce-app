@@ -1,6 +1,7 @@
 <h2><%= @ecommerce_entry.title%> $<%= @ecommerce_entry.price%></h2>
 <h3><%= @ecommerce_entry.content %></h3>
 <br>
+<h4>By <a href="/users/<%= @ecommerce_entry.user.id %>"><%= @ecommerce_entry.user.name %></a></h4><br>
 <p> Created on <%= @ecommerce_entry.created_at %></p>
 <% if authorized_to_edit?(@ecommerce_entry)%> 
   <a href="/ecommerce_entries/<%= @ecommerce_entry.id %>/edit">Edit Post</a>

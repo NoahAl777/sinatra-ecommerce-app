@@ -12,16 +12,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="/stylesheets/main.css" />
+    <link rel="stylesheet" href="/stylesheets/nav_bar.css"/>
+    <link rel="stylesheet" href="/stylesheets/welcome_page.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap')" rel="stylesheet">   
   </head>
-  <body>
-    <div class="nav">
-      <% if logged_in? %>
-        <a href="/logout">Logout</a>
-        <a href="/ecommerce_entries">See all listings</a>
-        <a href="/ecommerce_entries/new">Create a listing</a>
-        <a href="/users/4">Profile</a>
-      <% end %>
-    </div>
+  <body style="background-color: lightslategray;">
+    <% if logged_in? %>
+        <nav>
+          <ul>
+            <a href="/logout"><li>Logout</li></a>
+            <a href="/ecommerce_entries"><li>See all listings</li></a>
+            <a href="/ecommerce_entries/new"><li>Create a listing</li></a>
+            <a href="/users/4"><li>Profile</li></a>
+          </ul>
+        </nav>
+    <% end %>
     <div class="wrapper">
     <% if flash[:message] %>
       <h3><%= flash[:message] %></h3>
