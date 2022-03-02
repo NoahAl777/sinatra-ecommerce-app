@@ -1,4 +1,11 @@
+# CarCommerce Project
 A simple Ecommerce Application that allows users to log in, sign up, and create their own posts. Users can also edit and delete their own entries. Additionally, in every users profile they will be able to see all the posts that they have created.
+
+Post Show Page
+![Post Show Page](./public/images/post-show-page.PNG)
+
+User Show Page
+![User Show Page](./public/images/user-show-page.PNG)
 
 LICENSE
 
